@@ -212,9 +212,47 @@ Claude 会帮你检查并告诉你结果。
 
 遇到任何问题，直接在 Claude Code 中描述你的问题，Claude 会帮你解决。
 
+## 维护者检查（可选）
+
+在提交 skill 规范变更前，可以运行：
+
+```bash
+bash scripts/validate_skill_spec.sh
+```
+
+用于检查 `SKILL.md` 的关键护栏章节是否存在且未重复。
+
+如需执行脚本自测（包含失败场景）：
+
+```bash
+bash scripts/test_validate_skill_spec.sh
+```
+
 ---
 
 ## 更新日志
+
+### v1.2.3 (2026-04-03)
+- 新增：`scripts/validate_skill_spec.sh` 支持传入目标文件路径参数（默认 `SKILL.md`）
+- 新增：`scripts/test_validate_skill_spec.sh`，覆盖通过/缺失章节/重复标题三类校验场景
+- 新增：GitHub Actions 工作流 `.github/workflows/validate-skill.yml`，在 PR 与 push 自动执行校验
+
+### v1.2.2 (2026-04-03)
+- 新增：`scripts/validate_skill_spec.sh`，用于校验 `SKILL.md` 关键章节存在性与唯一性
+- 新增：README 维护者检查说明，支持提交前快速自检
+
+### v1.2.1 (2026-04-03)
+- 优化：新增证据引用规则（禁止编造来源、关键结论需带出处与时间）
+- 优化：新增“关键结论与证据”输出模板，方便结果审阅与复核
+- 优化：补充 reference 模块路由说明，按需加载 `references/` 内容
+
+### v1.2.0 (2026-04-03)
+- 新增：研究可信度护栏（来源数量、类型配比、时间窗要求）
+- 新增：冲突信息处理流程（冲突点列出 + 可信结论 + 不确定性说明）
+- 新增：媒体失败降级策略（真实图 → AI 图 → Mermaid/文字；视频失败给外链与摘要）
+- 新增：版权与合规提示模板（来源说明 + 使用风险提醒）
+- 新增：场景化输出模式（networking / interview / investment / learning）
+- 新增：输出质量 Rubric（5 维评分 + 低分补强机制）
 
 ### v1.1.0 (2026-01-22)
 - 新增：智能媒体获取（事实性图片下载 + 概念图 AI 生成）

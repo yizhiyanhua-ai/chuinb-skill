@@ -130,6 +130,56 @@ Execute comprehensive web research covering:
 - Use `WebSearch` for current information, news, trends
 - Use `WebFetch` for detailed article content
 
+### 2.1 Source Credibility Guardrails (MANDATORY)
+
+在整理研究结果前，必须执行以下可信度约束：
+
+- **最少来源数量**：至少引用 5 个有效来源
+- **来源类型配比**（至少覆盖 2 类）：
+  - 官方/监管/机构报告（公司财报、政府、协会、咨询机构）
+  - 主流媒体或行业媒体
+  - 专业研究文章或高质量数据库
+- **时间窗口要求**：
+  - 至少 2 条信息来自最近 12 个月
+  - 涉及“最新进展”时，优先最近 90 天来源
+- **可追溯性**：关键结论后面必须附来源链接或出处说明
+
+### 2.2 Conflict Handling Protocol
+
+当不同来源出现冲突信息时，遵循以下流程：
+
+1. 明确列出冲突点（例如市场规模、增长率、关键事件日期）
+2. 给出每个版本的来源与时间
+3. 解释可能的差异原因（统计口径、地区范围、时间维度）
+4. 给出“当前最可信结论 + 不确定性说明”
+
+### 2.3 Citation & Evidence Rules (MANDATORY)
+
+- **严禁编造来源**：找不到可信出处时，明确写“暂无权威来源支持”
+- **关键结论必须可追溯**：核心观点后附 `[来源名, 日期] + 链接`
+- **数据必须带时间戳**：市场规模、增速、排名等信息需注明统计年份
+
+推荐在输出中使用如下格式：
+
+```markdown
+### 关键结论与证据
+
+1. 结论 A（置信度：高）
+   - 证据 1: [来源名称, 2026-03-10](https://example.com)
+   - 证据 2: [来源名称, 2025-11-22](https://example.com)
+   - 备注: 不同机构口径略有差异，已按“全球口径”统一
+```
+
+### 2.4 Reference Module Routing
+
+按主题选择最小必要参考文件，避免过载：
+
+- 术语与表达：`references/jargon-patterns.md`
+- 行业分类研究框架：`references/industry-templates.md`
+- 学习方法解释：`references/learning-theories.md`
+
+仅加载与当前用户目标相关的部分，不必每次全量展开。
+
 ---
 
 ## Phase 3: Media Acquisition (MANDATORY - DO NOT SKIP)
@@ -306,6 +356,22 @@ python ~/.claude/skills/media-downloader/media_cli.py youtube "URL" -o "输出�
 - [ ] 图片和视频数量与内容丰富度匹配
 - [ ] 所有媒体文件已下载到本地 media 文件夹
 - [ ] 文件命名清晰规范
+
+### 3.8 媒体失败降级策略（MANDATORY）
+
+当媒体获取失败时，不允许直接跳过，必须按顺序降级：
+
+1. **事实图失败**：尝试 AI 生成替代图，并明确标注“AI 生成示意图”
+2. **AI 图失败**：改用 Mermaid/ASCII 图或文字结构化描述
+3. **视频失败**：提供高质量外链 + 60-120 秒关键内容摘要
+
+### 3.9 版权与合规提示（MANDATORY）
+
+在文档的“延伸阅读”或末尾补充：
+
+- 媒体来源说明（来源平台/作者/链接）
+- 版权状态提示（仅学习参考或可商用）
+- 商业使用风险提醒（建议优先使用可复用许可素材）
 
 ---
 
@@ -484,6 +550,27 @@ python ~/.claude/skills/media-downloader/media_cli.py youtube "URL" -o "输出�
 2. 将所有媒体文件保存到 media 文件夹
 3. 保存主 markdown 文件
 
+### 5.3 Scenario Modes (Output Adaptation)
+
+根据用户目标自动选择输出重点（可显式声明 mode）：
+
+- `mode=networking`：强调谈资、人物、热点话题
+- `mode=interview`：强调高频问答、结构化表达、案例拆解
+- `mode=investment`：强调商业模式、增长驱动、风险与竞争格局
+- `mode=learning`：强调概念体系、学习路径、记忆卡片
+
+### 5.4 Output Quality Rubric (Self-check)
+
+交付前按 1-5 分自评并简要补强薄弱项：
+
+- 清晰度（小白可理解）
+- 准确性（来源可信、可追溯）
+- 实用性（可用于会议/面试/投资交流）
+- 记忆性（闪卡与测验质量）
+- 可读性（结构、排版、图文对应）
+
+若总分 < 18，需至少补强 2 个低分维度后再交付。
+
 ---
 
 ## Phase 6: Interactive Elements
@@ -533,6 +620,10 @@ Before delivering the note, verify:
 
 - [ ] User profile questions were asked and answers incorporated
 - [ ] At least 5 web searches performed for current information
+- [ ] At least 5 valid references collected and traceable
+- [ ] At least 2 references are from the last 12 months
+- [ ] At least 2 source types covered (official/media/research)
+- [ ] Conflicting facts (if any) are explicitly reconciled
 - [ ] Minimum 3 real cases with specific details
 - [ ] 10+ industry terms explained
 - [ ] 2+ key figures profiled
@@ -545,6 +636,9 @@ Before delivering the note, verify:
   - [ ] 至少 1 个相关视频片段
 - [ ] **User was asked for save path before saving**
 - [ ] **Markdown file saved with embedded media**
+- [ ] Media source and copyright/compliance note included
+- [ ] Output mode selected or inferred from user goal
+- [ ] Rubric self-check completed (target total >= 18)
 - [ ] Personalization markers present throughout
 - [ ] Actionable next steps provided
 

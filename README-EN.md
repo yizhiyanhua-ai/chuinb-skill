@@ -212,9 +212,47 @@ Both! This skill supports bilingual Chinese and English.
 
 If you encounter any issues, just describe your problem in Claude Code, and Claude will help you solve it.
 
+## Maintainer Check (Optional)
+
+Before committing changes to the skill spec, you can run:
+
+```bash
+bash scripts/validate_skill_spec.sh
+```
+
+This verifies that key guardrail sections in `SKILL.md` exist and are not duplicated.
+
+To run validator self-tests (including expected failure scenarios):
+
+```bash
+bash scripts/test_validate_skill_spec.sh
+```
+
 ---
 
 ## Changelog
+
+### v1.2.3 (2026-04-03)
+- New: `scripts/validate_skill_spec.sh` now accepts an optional target file path (default: `SKILL.md`)
+- New: `scripts/test_validate_skill_spec.sh` covering pass/missing-section/duplicate-heading scenarios
+- New: GitHub Actions workflow `.github/workflows/validate-skill.yml` to run checks on push/PR
+
+### v1.2.2 (2026-04-03)
+- New: `scripts/validate_skill_spec.sh` to validate required `SKILL.md` sections and heading uniqueness
+- New: Maintainer check instructions in README for quick pre-commit verification
+
+### v1.2.1 (2026-04-03)
+- Improved: Added stricter evidence rules (no fabricated sources; key claims must include source + date)
+- Improved: Added a "Key Conclusions & Evidence" output template for easier review and verification
+- Improved: Added reference-module routing guidance for loading only relevant files under `references/`
+
+### v1.2.0 (2026-04-03)
+- New: Research credibility guardrails (minimum source count, source-type mix, recency rules)
+- New: Conflict handling protocol (explicit conflict points + best-current conclusion + uncertainty note)
+- New: Media degradation fallback path (real image -> AI image -> Mermaid/text; video fallback with link + summary)
+- New: Copyright and compliance note template (source attribution + usage risk reminder)
+- New: Scenario-based output modes (networking / interview / investment / learning)
+- New: Output quality rubric (5-dimension scoring + reinforcement for low scores)
 
 ### v1.1.0 (2026-01-22)
 - New: Smart media acquisition (real image download + AI concept generation)
