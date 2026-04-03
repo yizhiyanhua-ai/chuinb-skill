@@ -1,0 +1,28 @@
+name: Validate Skill Spec
+
+on:
+  push:
+    paths:
+      - 'SKILL.md'
+      - 'scripts/validate_skill_spec.sh'
+      - 'scripts/test_validate_skill_spec.sh'
+      - '.github/workflows/validate-skill.yml'
+  pull_request:
+    paths:
+      - 'SKILL.md'
+      - 'scripts/validate_skill_spec.sh'
+      - 'scripts/test_validate_skill_spec.sh'
+      - '.github/workflows/validate-skill.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run SKILL validator
+        run: bash scripts/validate_skill_spec.sh
+
+      - name: Run validator self-tests
+        run: bash scripts/test_validate_skill_spec.sh
